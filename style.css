@@ -11,12 +11,14 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    position: relative; /* Asegura el contexto para los z-index */
 }
 
 /* Contenedor principal para centrar el contenido */
 .container {
     z-index: 2; /* Se asegura que el contenido esté sobre las partículas */
     padding: 20px;
+    position: relative; /* Necesario para que el z-index funcione correctamente */
 }
 
 /* Estilos de los títulos */
@@ -24,13 +26,20 @@ body {
     font-size: 6rem; /* Tamaño grande para el título principal */
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
     animation: glow 2.5s infinite alternate;
+    margin: 0; /* Eliminar margen predeterminado */
 }
 
+/* Estilo para el segundo título con palpitación y brillo dorado */
 .secondary-title {
     font-size: 4rem;
-    text-shadow: 0 0 20px #fff, 0 0 30px #ffc1e3, 0 0 40px #ffc1e3;
-    animation: subtle-flicker 3s infinite alternate;
+    text-shadow: 0 0 20px #fff, 0 0 30px #ffc1e3, 0 0 40px #ffc1e3; /* Brillo inicial rosado */
+    margin: 0; /* Eliminar margen predeterminado */
 }
+
+.pulsate-golden-glow {
+    animation: pulse-glow 3s infinite ease-in-out alternate; /* Animación de palpitación y brillo dorado */
+}
+
 
 /* Estilo del botón */
 button {
@@ -45,6 +54,7 @@ button {
     transition: all 0.3s ease;
     margin-top: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    outline: none; /* Elimina el borde al enfocar en algunos navegadores */
 }
 
 button:hover {
@@ -55,7 +65,7 @@ button:hover {
 
 /* --- Animaciones --- */
 
-/* Animación de brillo para el texto */
+/* Animación de brillo para el texto principal */
 @keyframes glow {
     from {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
@@ -65,12 +75,32 @@ button:hover {
     }
 }
 
-/* Animación de destello para el segundo título */
-@keyframes subtle-flicker {
-    0% { opacity: 0.8; text-shadow: 0 0 15px #fff, 0 0 25px #ffc1e3; }
-    50% { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 30px #ffc1e3; }
-    100% { opacity: 0.8; text-shadow: 0 0 15px #fff, 0 0 25px #ffc1e3; }
+/* Animación de palpitación y brillo dorado para el segundo título */
+@keyframes pulse-glow {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Brillo blanco sutil */
+                     0 0 20px #FFD700, /* Dorado */
+                     0 0 30px #FFD700; /* Dorado más fuerte */
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1.05); /* Ligeramente más grande */
+        text-shadow: 0 0 15px rgba(255, 255, 255, 1),
+                     0 0 30px #FFD700, /* Dorado más intenso */
+                     0 0 45px #FFD700,
+                     0 0 60px rgba(255, 215, 0, 0.7); /* Halo dorado más grande */
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                     0 0 20px #FFD700,
+                     0 0 30px #FFD700;
+        opacity: 0.9;
+    }
 }
+
 
 /* Partículas flotantes */
 .particles {
@@ -80,17 +110,19 @@ button:hover {
     width: 100%;
     height: 100%;
     z-index: 1;
+    pointer-events: none; /* Las partículas no interferirán con los clics */
 }
 
 .particle {
     position: absolute;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7); /* Un poco más visibles y brillantes */
     border-radius: 50%;
     opacity: 0;
-    animation: float 15s infinite ease-in-out;
+    animation: float 20s infinite ease-in-out; /* Duración base un poco más larga */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Pequeño brillo a las partículas */
 }
 
-/* Asignar diferentes tamaños y duraciones a las partículas para un efecto más natural */
+/* Asignar diferentes tamaños y duraciones a las partículas para un efecto más natural y denso */
 .particle:nth-child(1) { width: 10px; height: 10px; left: 10%; animation-duration: 12s; animation-delay: 1s; }
 .particle:nth-child(2) { width: 5px; height: 5px; left: 20%; animation-duration: 18s; animation-delay: 3s; }
 .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-duration: 14s; animation-delay: 0s; }
@@ -107,20 +139,51 @@ button:hover {
 .particle:nth-child(14) { width: 6px; height: 6px; left: 55%; animation-duration: 12s; animation-delay: 1s; }
 .particle:nth-child(15) { width: 7px; height: 7px; left: 65%; animation-duration: 18s; animation-delay: 4s; }
 .particle:nth-child(16) { width: 4px; height: 4px; left: 75%; animation-duration: 13s; animation-delay: 9s; }
+.particle:nth-child(17) { width: 9px; height: 9px; left: 5%; animation-duration: 15s; animation-delay: 0.5s; }
+.particle:nth-child(18) { width: 11px; height: 11px; left: 85%; animation-duration: 17s; animation-delay: 6.5s; }
+.particle:nth-child(19) { width: 5px; height: 5px; left: 22%; animation-duration: 11s; animation-delay: 2.5s; }
+.particle:nth-child(20) { width: 8px; height: 8px; left: 68%; animation-duration: 14s; animation-delay: 8.5s; }
+.particle:nth-child(21) { width: 10px; height: 10px; left: 3%; animation-duration: 19s; animation-delay: 3.5s; }
+.particle:nth-child(22) { width: 6px; height: 6px; left: 95%; animation-duration: 16s; animation-delay: 0.8s; }
+.particle:nth-child(23) { width: 7px; height: 7px; left: 18%; animation-duration: 13s; animation-delay: 7.5s; }
+.particle:nth-child(24) { width: 4px; height: 4px; left: 72%; animation-duration: 21s; animation-delay: 4.5s; }
+.particle:nth-child(25) { width: 12px; height: 12px; left: 58%; animation-duration: 10s; animation-delay: 1.5s; }
+.particle:nth-child(26) { width: 9px; height: 9px; left: 33%; animation-duration: 18s; animation-delay: 9.5s; }
+.particle:nth-child(27) { width: 5px; height: 5px; left: 48%; animation-duration: 14s; animation-delay: 0.2s; }
+.particle:nth-child(28) { width: 8px; height: 8px; left: 88%; animation-duration: 16s; animation-delay: 5.5s; }
+.particle:nth-child(29) { width: 10px; height: 10px; left: 1%; animation-duration: 12s; animation-delay: 6.5s; }
+.particle:nth-child(30) { width: 6px; height: 6px; left: 98%; animation-duration: 15s; animation-delay: 2.8s; }
+.particle:nth-child(31) { width: 7px; height: 7px; left: 12%; animation-duration: 17s; animation-delay: 10s; }
+.particle:nth-child(32) { width: 9px; height: 9px; left: 42%; animation-duration: 11s; animation-delay: 0.3s; }
+.particle:nth-child(33) { width: 5px; height: 5px; left: 62%; animation-duration: 19s; animation-delay: 6s; }
+.particle:nth-child(34) { width: 8px; height: 8px; left: 8%; animation-duration: 13s; animation-delay: 4s; }
+.particle:nth-child(35) { width: 11px; height: 11px; left: 78%; animation-duration: 20s; animation-delay: 1.2s; }
+.particle:nth-child(36) { width: 6px; height: 6px; left: 28%; animation-duration: 15s; animation-delay: 8s; }
+.particle:nth-child(37) { width: 4px; height: 4px; left: 52%; animation-duration: 16s; animation-delay: 3.2s; }
+.particle:nth-child(38) { width: 10px; height: 10px; left: 92%; animation-duration: 14s; animation-delay: 7s; }
+.particle:nth-child(39) { width: 7px; height: 7px; left: 38%; animation-duration: 18s; animation-delay: 0.7s; }
+.particle:nth-child(40) { width: 9px; height: 9px; left: 68%; animation-duration: 12s; animation-delay: 5s; }
+
 
 @keyframes float {
     0% {
-        transform: translateY(100vh) rotate(0deg);
+        transform: translateY(100vh) rotate(0deg) scale(0.5); /* Empiezan más pequeños */
         opacity: 0;
     }
-    20% {
-        opacity: 0.8; /* Aparecen gradualmente */
+    10% {
+        opacity: 0.7; /* Aparecen rápidamente */
+        transform: translateY(90vh) rotate(30deg) scale(0.8);
     }
-    80% {
-        opacity: 0.8; /* Se mantienen visibles */
+    50% {
+        opacity: 1; /* Máxima visibilidad en el centro */
+        transform: translateY(50vh) rotate(180deg) scale(1);
+    }
+    90% {
+        opacity: 0.7;
+        transform: translateY(10vh) rotate(330deg) scale(0.8);
     }
     100% {
-        transform: translateY(-10vh) rotate(720deg); /* Suben y rotan */
+        transform: translateY(-10vh) rotate(360deg) scale(0.5); /* Terminan más pequeños */
         opacity: 0;
     }
 }
