@@ -1,51 +1,119 @@
 /* Estilos generales y fondo */
 body {
     margin: 0;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Helvetica Neue', sans-serif; /* Cambiamos la fuente base para los textos del cupón */
     height: 100vh;
     color: white;
     overflow: hidden; /* Evita el desbordamiento de las partículas */
-    /* Degradado sutil en tonos cálidos/pastel */
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative; /* Asegura el contexto para los z-index */
+    position: relative;
 }
 
 /* Contenedor principal para centrar el contenido */
 .container {
-    z-index: 2; /* Se asegura que el contenido esté sobre las partículas */
+    z-index: 2;
     padding: 20px;
-    position: relative; /* Necesario para que el z-index funcione correctamente */
+    position: relative;
 }
 
 /* Estilos de los títulos */
 .main-title {
-    font-size: 6rem; /* Tamaño grande para el título principal */
+    font-family: 'Dancing Script', cursive;
+    font-size: 6rem;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
     animation: glow 2.5s infinite alternate;
-    margin: 0; /* Eliminar margen predeterminado */
+    margin: 0;
 }
 
-/* --- CAMBIO REALIZADO AQUÍ --- */
-/* Estilo para el segundo título con letras blancas y brillo dorado */
+
+/* --- INICIO DE LOS NUEVOS ESTILOS DE CUPÓN --- */
+
+.coupon-container {
+    background-color: #fffaf0; /* Un blanco cálido, color crema */
+    color: #5d4037; /* Un color café oscuro para el texto */
+    padding: 30px;
+    border-radius: 15px;
+    position: relative; /* Clave para los bordes perforados */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px;
+}
+
+/* Efecto de bordes perforados */
+.coupon-container::before,
+.coupon-container::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 20px; /* Ancho de la zona perforada */
+    top: 0;
+    /* Usamos gradientes para simular los agujeros */
+    background: radial-gradient(circle at 0, transparent, transparent 8px, #fffaf0 8px) 0 / 20px 20px;
+}
+
+.coupon-container::before {
+    left: -10px; /* Mitad del ancho para que se vea cortado */
+}
+
+.coupon-container::after {
+    right: -10px;
+    transform: rotate(180deg); /* Reutilizamos el mismo gradiente para el otro lado */
+}
+
+.coupon-header, .coupon-footer {
+    padding: 0 20px;
+}
+
+.coupon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed rgba(93, 64, 55, 0.3);
+    padding-bottom: 15px;
+    font-family: 'Special Elite', monospace; /* Fuente tipo máquina de escribir */
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #8d6e63;
+}
+
+.coupon-body {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coupon-footer {
+    border-top: 2px dashed rgba(93, 64, 55, 0.3);
+    padding-top: 15px;
+    font-size: 0.8rem;
+    color: #a1887f;
+}
+
 .secondary-title {
-    font-size: 4rem;
-    color: white; /* LETRAS EN BLANCO */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Mantenemos el brillo blanco/dorado */
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem; /* Ajustado para caber en el cupón */
+    color: white; 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
                  0 0 20px #FFD700, 
                  0 0 30px #FFD700; 
-    margin: 0; /* Eliminar margen predeterminado */
+    margin: 0;
+    color: #5d4037; /* Color principal de texto del cupón */
 }
 
 .pulsate-golden-glow {
-    animation: pulse-glow 3s infinite ease-in-out alternate; /* Animación de palpitación y brillo dorado */
+    animation: pulse-glow-coupon 3s infinite ease-in-out alternate;
 }
 
-
-/* --- EFECTO DE GLITTER CAYENDO (SIN CAMBIOS) --- */
+/* --- EFECTO DE GLITTER CAYENDO --- */
 .glitter-container {
     position: relative;
     display: inline-block;
@@ -54,28 +122,26 @@ body {
 .glitter-container::before, .glitter-container::after {
     content: '';
     position: absolute;
-    top: -20px; /* Empezar un poco por encima del texto */
+    top: -20px;
     left: 0;
     width: 100%;
-    height: 150%; /* Más altura para que caigan */
-    pointer-events: none; /* No interferir con el ratón */
-    
+    height: 150%;
+    pointer-events: none;
     background-image:
         radial-gradient(circle, #FFD700 1px, transparent 1.5px),
-        radial-gradient(circle, #FFA500 1px, transparent 1.5px);
-    
+        radial-gradient(circle, #d4af37 1px, transparent 1.5px); /* Tono dorado más oscuro */
     background-size: 30px 30px, 40px 40px;
     background-position: 0 0, 20px 20px;
-    
     animation: fall-glitter 3s linear infinite;
     opacity: 0;
+    z-index: 3;
 }
 
 .glitter-container::after {
     background-size: 25px 25px, 35px 35px;
     background-position: 10px 10px, 25px 25px;
-    animation-duration: 4s; /* Más lento */
-    animation-delay: 1.5s; /* Empieza más tarde */
+    animation-duration: 4s;
+    animation-delay: 1.5s;
 }
 
 
@@ -86,13 +152,12 @@ button {
     border: 2px solid white;
     padding: 15px 30px;
     font-size: 1.2rem;
-    font-family: 'Helvetica Neue', sans-serif; /* Fuente más legible para el botón */
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    outline: none; /* Elimina el borde al enfocar en algunos navegadores */
+    outline: none;
 }
 
 button:hover {
@@ -103,152 +168,64 @@ button:hover {
 
 /* --- Animaciones --- */
 
-/* Animación de brillo para el texto principal */
 @keyframes glow {
-    from {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-    }
-    to {
-        text-shadow: 0 0 25px rgba(255, 255, 255, 1);
-    }
+    from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.6); }
+    to { text-shadow: 0 0 25px rgba(255, 255, 255, 1); }
 }
 
-/* Animación de palpitación y brillo dorado para el segundo título */
-@keyframes pulse-glow {
+/* Animación de brillo ajustada para el texto oscuro del cupón */
+@keyframes pulse-glow-coupon {
     0% {
         transform: scale(1);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                     0 0 20px #FFD700,
-                     0 0 30px #FFD700;
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.7), /* Sombra dorada */
+                     0 0 15px rgba(212, 175, 55, 0.5);
         opacity: 0.9;
     }
     50% {
         transform: scale(1.05);
-        text-shadow: 0 0 15px rgba(255, 255, 255, 1),
-                     0 0 30px #FFD700,
-                     0 0 45px #FFD700,
-                     0 0 60px rgba(255, 215, 0, 0.7);
+        text-shadow: 0 0 12px rgba(255, 215, 0, 1),
+                     0 0 25px rgba(255, 215, 0, 0.8),
+                     0 0 40px rgba(255, 215, 0, 0.6);
         opacity: 1;
     }
     100% {
         transform: scale(1);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                     0 0 20px #FFD700,
-                     0 0 30px #FFD700;
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.7),
+                     0 0 15px rgba(212, 175, 55, 0.5);
         opacity: 0.9;
     }
 }
 
-/* Animación de caída de glitter */
 @keyframes fall-glitter {
-    0% {
-        transform: translateY(-20px); /* Empieza arriba */
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(120px); /* Termina abajo */
-        opacity: 0;
-    }
+    0% { transform: translateY(-20px); opacity: 1; }
+    100% { transform: translateY(120px); opacity: 0; }
 }
-
 
 /* Partículas flotantes de fondo */
 .particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none; /* Las partículas no interferirán con los clics */
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
 }
-
 .particle {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    opacity: 0;
-    animation: float 20s infinite ease-in-out;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    position: absolute; background: rgba(255, 255, 255, 0.7); border-radius: 50%; opacity: 0;
+    animation: float 20s infinite ease-in-out; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
-
-.particle:nth-child(1) { width: 10px; height: 10px; left: 10%; animation-duration: 12s; animation-delay: 1s; }
-.particle:nth-child(2) { width: 5px; height: 5px; left: 20%; animation-duration: 18s; animation-delay: 3s; }
-.particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-duration: 14s; animation-delay: 0s; }
-.particle:nth-child(4) { width: 12px; height: 12px; left: 40%; animation-duration: 20s; animation-delay: 5s; }
-.particle:nth-child(5) { width: 6px; height: 6px; left: 50%; animation-duration: 16s; animation-delay: 2s; }
-.particle:nth-child(6) { width: 10px; height: 10px; left: 60%; animation-duration: 13s; animation-delay: 4s; }
-.particle:nth-child(7) { width: 7px; height: 7px; left: 70%; animation-duration: 19s; animation-delay: 1s; }
-.particle:nth-child(8) { width: 4px; height: 4px; left: 80%; animation-duration: 15s; animation-delay: 6s; }
-.particle:nth-child(9) { width: 9px; height: 9px; left: 90%; animation-duration: 17s; animation-delay: 3s; }
-.particle:nth-child(10) { width: 11px; height: 11px; left: 15%; animation-duration: 22s; animation-delay: 8s; }
-.particle:nth-child(11) { width: 5px; height: 5px; left: 25%; animation-duration: 14s; animation-delay: 5s; }
-.particle:nth-child(12) { width: 8px; height: 8px; left: 35%; animation-duration: 20s; animation-delay: 2s; }
-.particle:nth-child(13) { width: 10px; height: 10px; left: 45%; animation-duration: 16s; animation-delay: 7s; }
-.particle:nth-child(14) { width: 6px; height: 6px; left: 55%; animation-duration: 12s; animation-delay: 1s; }
-.particle:nth-child(15) { width: 7px; height: 7px; left: 65%; animation-duration: 18s; animation-delay: 4s; }
-.particle:nth-child(16) { width: 4px; height: 4px; left: 75%; animation-duration: 13s; animation-delay: 9s; }
-.particle:nth-child(17) { width: 9px; height: 9px; left: 5%; animation-duration: 15s; animation-delay: 0.5s; }
-.particle:nth-child(18) { width: 11px; height: 11px; left: 85%; animation-duration: 17s; animation-delay: 6.5s; }
-.particle:nth-child(19) { width: 5px; height: 5px; left: 22%; animation-duration: 11s; animation-delay: 2.5s; }
-.particle:nth-child(20) { width: 8px; height: 8px; left: 68%; animation-duration: 14s; animation-delay: 8.5s; }
-.particle:nth-child(21) { width: 10px; height: 10px; left: 3%; animation-duration: 19s; animation-delay: 3.5s; }
-.particle:nth-child(22) { width: 6px; height: 6px; left: 95%; animation-duration: 16s; animation-delay: 0.8s; }
-.particle:nth-child(23) { width: 7px; height: 7px; left: 18%; animation-duration: 13s; animation-delay: 7.5s; }
-.particle:nth-child(24) { width: 4px; height: 4px; left: 72%; animation-duration: 21s; animation-delay: 4.5s; }
-.particle:nth-child(25) { width: 12px; height: 12px; left: 58%; animation-duration: 10s; animation-delay: 1.5s; }
-.particle:nth-child(26) { width: 9px; height: 9px; left: 33%; animation-duration: 18s; animation-delay: 9.5s; }
-.particle:nth-child(27) { width: 5px; height: 5px; left: 48%; animation-duration: 14s; animation-delay: 0.2s; }
-.particle:nth-child(28) { width: 8px; height: 8px; left: 88%; animation-duration: 16s; animation-delay: 5.5s; }
-.particle:nth-child(29) { width: 10px; height: 10px; left: 1%; animation-duration: 12s; animation-delay: 6.5s; }
-.particle:nth-child(30) { width: 6px; height: 6px; left: 98%; animation-duration: 15s; animation-delay: 2.8s; }
-.particle:nth-child(31) { width: 7px; height: 7px; left: 12%; animation-duration: 17s; animation-delay: 10s; }
-.particle:nth-child(32) { width: 9px; height: 9px; left: 42%; animation-duration: 11s; animation-delay: 0.3s; }
-.particle:nth-child(33) { width: 5px; height: 5px; left: 62%; animation-duration: 19s; animation-delay: 6s; }
-.particle:nth-child(34) { width: 8px; height: 8px; left: 8%; animation-duration: 13s; animation-delay: 4s; }
-.particle:nth-child(35) { width: 11px; height: 11px; left: 78%; animation-duration: 20s; animation-delay: 1.2s; }
-.particle:nth-child(36) { width: 6px; height: 6px; left: 28%; animation-duration: 15s; animation-delay: 8s; }
-.particle:nth-child(37) { width: 4px; height: 4px; left: 52%; animation-duration: 16s; animation-delay: 3.2s; }
-.particle:nth-child(38) { width: 10px; height: 10px; left: 92%; animation-duration: 14s; animation-delay: 7s; }
-.particle:nth-child(39) { width: 7px; height: 7px; left: 38%; animation-duration: 18s; animation-delay: 0.7s; }
-.particle:nth-child(40) { width: 9px; height: 9px; left: 68%; animation-duration: 12s; animation-delay: 5s; }
-
+/* Definiciones de partículas (sin cambios)... */
+.particle:nth-child(1){width:10px;height:10px;left:10%;animation-duration:12s;animation-delay:1s}.particle:nth-child(2){width:5px;height:5px;left:20%;animation-duration:18s;animation-delay:3s}.particle:nth-child(3){width:8px;height:8px;left:30%;animation-duration:14s;animation-delay:0s}.particle:nth-child(4){width:12px;height:12px;left:40%;animation-duration:20s;animation-delay:5s}.particle:nth-child(5){width:6px;height:6px;left:50%;animation-duration:16s;animation-delay:2s}.particle:nth-child(6){width:10px;height:10px;left:60%;animation-duration:13s;animation-delay:4s}.particle:nth-child(7){width:7px;height:7px;left:70%;animation-duration:19s;animation-delay:1s}.particle:nth-child(8){width:4px;height:4px;left:80%;animation-duration:15s;animation-delay:6s}.particle:nth-child(9){width:9px;height:9px;left:90%;animation-duration:17s;animation-delay:3s}.particle:nth-child(10){width:11px;height:11px;left:15%;animation-duration:22s;animation-delay:8s}.particle:nth-child(11){width:5px;height:5px;left:25%;animation-duration:14s;animation-delay:5s}.particle:nth-child(12){width:8px;height:8px;left:35%;animation-duration:20s;animation-delay:2s}.particle:nth-child(13){width:10px;height:10px;left:45%;animation-duration:16s;animation-delay:7s}.particle:nth-child(14){width:6px;height:6px;left:55%;animation-duration:12s;animation-delay:1s}.particle:nth-child(15){width:7px;height:7px;left:65%;animation-duration:18s;animation-delay:4s}.particle:nth-child(16){width:4px;height:4px;left:75%;animation-duration:13s;animation-delay:9s}.particle:nth-child(17){width:9px;height:9px;left:5%;animation-duration:15s;animation-delay:.5s}.particle:nth-child(18){width:11px;height:11px;left:85%;animation-duration:17s;animation-delay:6.5s}.particle:nth-child(19){width:5px;height:5px;left:22%;animation-duration:11s;animation-delay:2.5s}.particle:nth-child(20){width:8px;height:8px;left:68%;animation-duration:14s;animation-delay:8.5s}.particle:nth-child(21){width:10px;height:10px;left:3%;animation-duration:19s;animation-delay:3.5s}.particle:nth-child(22){width:6px;height:6px;left:95%;animation-duration:16s;animation-delay:.8s}.particle:nth-child(23){width:7px;height:7px;left:18%;animation-duration:13s;animation-delay:7.5s}.particle:nth-child(24){width:4px;height:4px;left:72%;animation-duration:21s;animation-delay:4.5s}.particle:nth-child(25){width:12px;height:12px;left:58%;animation-duration:10s;animation-delay:1.5s}.particle:nth-child(26){width:9px;height:9px;left:33%;animation-duration:18s;animation-delay:9.5s}.particle:nth-child(27){width:5px;height:5px;left:48%;animation-duration:14s;animation-delay:.2s}.particle:nth-child(28){width:8px;height:8px;left:88%;animation-duration:16s;animation-delay:5.5s}.particle:nth-child(29){width:10px;height:10px;left:1%;animation-duration:12s;animation-delay:6.5s}.particle:nth-child(30){width:6px;height:6px;left:98%;animation-duration:15s;animation-delay:2.8s}.particle:nth-child(31){width:7px;height:7px;left:12%;animation-duration:17s;animation-delay:10s}.particle:nth-child(32){width:9px;height:9px;left:42%;animation-duration:11s;animation-delay:.3s}.particle:nth-child(33){width:5px;height:5px;left:62%;animation-duration:19s;animation-delay:6s}.particle:nth-child(34){width:8px;height:8px;left:8%;animation-duration:13s;animation-delay:4s}.particle:nth-child(35){width:11px;height:11px;left:78%;animation-duration:20s;animation-delay:1.2s}.particle:nth-child(36){width:6px;height:6px;left:28%;animation-duration:15s;animation-delay:8s}.particle:nth-child(37){width:4px;height:4px;left:52%;animation-duration:16s;animation-delay:3.2s}.particle:nth-child(38){width:10px;height:10px;left:92%;animation-duration:14s;animation-delay:7s}.particle:nth-child(39){width:7px;height:7px;left:38%;animation-duration:18s;animation-delay:.7s}.particle:nth-child(40){width:9px;height:9px;left:68%;animation-duration:12s;animation-delay:5s}
 
 @keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg) scale(0.5); /* Empiezan más pequeños */
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.7; /* Aparecen rápidamente */
-        transform: translateY(90vh) rotate(30deg) scale(0.8);
-    }
-    50% {
-        opacity: 1; /* Máxima visibilidad en el centro */
-        transform: translateY(50vh) rotate(180deg) scale(1);
-    }
-    90% {
-        opacity: 0.7;
-        transform: translateY(10vh) rotate(330deg) scale(0.8);
-    }
-    100% {
-        transform: translateY(-10vh) rotate(360deg) scale(0.5); /* Terminan más pequeños */
-        opacity: 0;
-    }
+    0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+    10% { opacity: 0.7; transform: translateY(90vh) rotate(30deg) scale(0.8); }
+    50% { opacity: 1; transform: translateY(50vh) rotate(180deg) scale(1); }
+    90% { opacity: 0.7; transform: translateY(10vh) rotate(330deg) scale(0.8); }
+    100% { transform: translateY(-10vh) rotate(360deg) scale(0.5); opacity: 0; }
 }
 
 /* --- Diseño Responsivo (para celulares) --- */
 @media (max-width: 768px) {
-    .main-title {
-        font-size: 3.5rem; /* Letra más pequeña en móviles */
-    }
-
-    .secondary-title {
-        font-size: 2.5rem;
-    }
-
-    button {
-        padding: 12px 25px;
-        font-size: 1rem;
-    }
+    .main-title { font-size: 3.5rem; }
+    button { padding: 12px 25px; font-size: 1rem; }
+    .coupon-container { padding: 20px; min-height: 250px; }
+    .secondary-title { font-size: 2.2rem; }
+    .coupon-header { font-size: 0.7rem; }
+    .coupon-footer { font-size: 0.7rem; }
 }
