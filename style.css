@@ -1,10 +1,10 @@
 /* Estilos generales y fondo */
 body {
     margin: 0;
-    font-family: 'Helvetica Neue', sans-serif; /* Cambiamos la fuente base para los textos del cupón */
+    font-family: 'Helvetica Neue', sans-serif;
     height: 100vh;
     color: white;
-    overflow: hidden; /* Evita el desbordamiento de las partículas */
+    overflow: hidden;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     display: flex;
     justify-content: center;
@@ -29,22 +29,28 @@ body {
     margin: 0;
 }
 
-
-/* --- INICIO DE LOS NUEVOS ESTILOS DE CUPÓN --- */
+/* --- ESTILOS MEJORADOS DE CUPÓN CON EFECTO 3D Y REALISTA --- */
 
 .coupon-container {
-    background-color: #fffaf0; /* Un blanco cálido, color crema */
-    color: #5d4037; /* Un color café oscuro para el texto */
+    background: linear-gradient(145deg, #fdfbfb, #e0dcdc); /* Degradado sutil para un aspecto de relieve */
+    color: #5d4037;
     padding: 30px;
     border-radius: 15px;
-    position: relative; /* Clave para los bordes perforados */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    /* Múltiples sombras para efecto 3D y de flotación */
+    box-shadow:
+        inset 0 0 10px rgba(0, 0, 0, 0.1), /* Sombra interna sutil */
+        0 10px 20px rgba(0, 0, 0, 0.2),    /* Sombra principal de flotación */
+        0 4px 8px rgba(0, 0, 0, 0.1);      /* Sombra más cercana para un toque suave */
     width: 90%;
     max-width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 280px;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borde suave para definirlo */
+    perspective: 1000px; /* Para la animación 3D */
+    animation: coupon-appear 1s ease-out forwards; /* Animación de entrada */
 }
 
 /* Efecto de bordes perforados */
@@ -52,36 +58,51 @@ body {
 .coupon-container::after {
     content: '';
     position: absolute;
-    height: 100%;
-    width: 20px; /* Ancho de la zona perforada */
-    top: 0;
-    /* Usamos gradientes para simular los agujeros */
-    background: radial-gradient(circle at 0, transparent, transparent 8px, #fffaf0 8px) 0 / 20px 20px;
+    height: calc(100% + 2px); /* Un poco más grande para cubrir el borde */
+    width: 25px; /* Ancho de la zona perforada */
+    top: -1px; /* Ajuste para el borde */
+    /* Usamos gradientes cónicos y radiales para simular los agujeros con más realismo */
+    background:
+        radial-gradient(circle at 50% 0%, transparent 8px, #e0dcdc 8px) 0 / 20px 20px repeat-y, /* Agujeros de arriba */
+        radial-gradient(circle at 50% 100%, transparent 8px, #e0dcdc 8px) 0 / 20px 20px repeat-y, /* Agujeros de abajo */
+        linear-gradient(to right, #e0dcdc, #e0dcdc); /* Fondo sólido entre agujeros */
+    background-size: 20px 20px;
+    background-position: center top, center bottom, center center;
 }
 
 .coupon-container::before {
-    left: -10px; /* Mitad del ancho para que se vea cortado */
+    left: -12.5px; /* Mitad del ancho para que se vea cortado, + un poco para el borde */
+    background-color: #e0dcdc; /* Color de fondo del "papel" */
 }
 
 .coupon-container::after {
-    right: -10px;
-    transform: rotate(180deg); /* Reutilizamos el mismo gradiente para el otro lado */
+    right: -12.5px;
+    transform: rotateY(180deg); /* Voltear para que los cortes miren hacia el centro */
+    background-color: #e0dcdc;
 }
 
 .coupon-header, .coupon-footer {
     padding: 0 20px;
+    position: relative; /* Asegura que estén sobre los pseudo-elementos */
+    z-index: 10;
 }
 
 .coupon-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px dashed rgba(93, 64, 55, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Borde más sutil */
     padding-bottom: 15px;
-    font-family: 'Special Elite', monospace; /* Fuente tipo máquina de escribir */
+    font-family: 'Special Elite', monospace;
     text-transform: uppercase;
     font-size: 0.9rem;
     color: #8d6e63;
+}
+
+.coupon-serial {
+    font-family: 'Press Start 2P', cursive; /* Fuente pixelada para el número */
+    font-size: 0.7rem;
+    color: #a1887f;
 }
 
 .coupon-body {
@@ -89,10 +110,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 20px 0; /* Más espacio vertical */
 }
 
 .coupon-footer {
-    border-top: 2px dashed rgba(93, 64, 55, 0.3);
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Borde más sutil */
     padding-top: 15px;
     font-size: 0.8rem;
     color: #a1887f;
@@ -100,23 +122,22 @@ body {
 
 .secondary-title {
     font-family: 'Dancing Script', cursive;
-    font-size: 3rem; /* Ajustado para caber en el cupón */
-    color: white; 
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                 0 0 20px #FFD700, 
-                 0 0 30px #FFD700; 
+    font-size: 3rem;
+    color: #5d4037; /* Color oscuro para el texto principal del cupón */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), /* Sombra blanca suave para el texto */
+                 0 0 10px rgba(212, 175, 55, 0.7); /* Brillo dorado tenue */
     margin: 0;
-    color: #5d4037; /* Color principal de texto del cupón */
 }
 
 .pulsate-golden-glow {
     animation: pulse-glow-coupon 3s infinite ease-in-out alternate;
 }
 
-/* --- EFECTO DE GLITTER CAYENDO --- */
+/* --- EFECTO DE GLITTER CAYENDO (sin cambios significativos) --- */
 .glitter-container {
     position: relative;
     display: inline-block;
+    z-index: 10; /* Asegurar que el glitter esté sobre el texto */
 }
 
 .glitter-container::before, .glitter-container::after {
@@ -129,12 +150,12 @@ body {
     pointer-events: none;
     background-image:
         radial-gradient(circle, #FFD700 1px, transparent 1.5px),
-        radial-gradient(circle, #d4af37 1px, transparent 1.5px); /* Tono dorado más oscuro */
+        radial-gradient(circle, #d4af37 1px, transparent 1.5px);
     background-size: 30px 30px, 40px 40px;
     background-position: 0 0, 20px 20px;
     animation: fall-glitter 3s linear infinite;
     opacity: 0;
-    z-index: 3;
+    z-index: 1; /* Esto es importante para que el glitter caiga "sobre" el texto */
 }
 
 .glitter-container::after {
@@ -145,7 +166,7 @@ body {
 }
 
 
-/* Estilo del botón */
+/* Estilo del botón (sin cambios) */
 button {
     background-color: #ff9a9e;
     color: white;
@@ -173,32 +194,43 @@ button:hover {
     to { text-shadow: 0 0 25px rgba(255, 255, 255, 1); }
 }
 
-/* Animación de brillo ajustada para el texto oscuro del cupón */
 @keyframes pulse-glow-coupon {
     0% {
         transform: scale(1);
-        text-shadow: 0 0 8px rgba(212, 175, 55, 0.7), /* Sombra dorada */
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.7),
                      0 0 15px rgba(212, 175, 55, 0.5);
-        opacity: 0.9;
+        color: #5d4037; /* Mantener color de texto */
     }
     50% {
-        transform: scale(1.05);
+        transform: scale(1.03); /* Un poco más sutil el pulso */
         text-shadow: 0 0 12px rgba(255, 215, 0, 1),
                      0 0 25px rgba(255, 215, 0, 0.8),
                      0 0 40px rgba(255, 215, 0, 0.6);
-        opacity: 1;
+        color: #6a4f43; /* Ligeramente más claro en el pico del pulso */
     }
     100% {
         transform: scale(1);
         text-shadow: 0 0 8px rgba(212, 175, 55, 0.7),
                      0 0 15px rgba(212, 175, 55, 0.5);
-        opacity: 0.9;
+        color: #5d4037;
     }
 }
 
 @keyframes fall-glitter {
     0% { transform: translateY(-20px); opacity: 1; }
     100% { transform: translateY(120px); opacity: 0; }
+}
+
+/* Animación de entrada para el cupón */
+@keyframes coupon-appear {
+    from {
+        opacity: 0;
+        transform: rotateX(-30deg) scale(0.8) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: rotateX(0deg) scale(1) translateY(0);
+    }
 }
 
 /* Partículas flotantes de fondo */
@@ -209,8 +241,9 @@ button:hover {
     position: absolute; background: rgba(255, 255, 255, 0.7); border-radius: 50%; opacity: 0;
     animation: float 20s infinite ease-in-out; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
-/* Definiciones de partículas (sin cambios)... */
+/* Definiciones de partículas (se mantienen) */
 .particle:nth-child(1){width:10px;height:10px;left:10%;animation-duration:12s;animation-delay:1s}.particle:nth-child(2){width:5px;height:5px;left:20%;animation-duration:18s;animation-delay:3s}.particle:nth-child(3){width:8px;height:8px;left:30%;animation-duration:14s;animation-delay:0s}.particle:nth-child(4){width:12px;height:12px;left:40%;animation-duration:20s;animation-delay:5s}.particle:nth-child(5){width:6px;height:6px;left:50%;animation-duration:16s;animation-delay:2s}.particle:nth-child(6){width:10px;height:10px;left:60%;animation-duration:13s;animation-delay:4s}.particle:nth-child(7){width:7px;height:7px;left:70%;animation-duration:19s;animation-delay:1s}.particle:nth-child(8){width:4px;height:4px;left:80%;animation-duration:15s;animation-delay:6s}.particle:nth-child(9){width:9px;height:9px;left:90%;animation-duration:17s;animation-delay:3s}.particle:nth-child(10){width:11px;height:11px;left:15%;animation-duration:22s;animation-delay:8s}.particle:nth-child(11){width:5px;height:5px;left:25%;animation-duration:14s;animation-delay:5s}.particle:nth-child(12){width:8px;height:8px;left:35%;animation-duration:20s;animation-delay:2s}.particle:nth-child(13){width:10px;height:10px;left:45%;animation-duration:16s;animation-delay:7s}.particle:nth-child(14){width:6px;height:6px;left:55%;animation-duration:12s;animation-delay:1s}.particle:nth-child(15){width:7px;height:7px;left:65%;animation-duration:18s;animation-delay:4s}.particle:nth-child(16){width:4px;height:4px;left:75%;animation-duration:13s;animation-delay:9s}.particle:nth-child(17){width:9px;height:9px;left:5%;animation-duration:15s;animation-delay:.5s}.particle:nth-child(18){width:11px;height:11px;left:85%;animation-duration:17s;animation-delay:6.5s}.particle:nth-child(19){width:5px;height:5px;left:22%;animation-duration:11s;animation-delay:2.5s}.particle:nth-child(20){width:8px;height:8px;left:68%;animation-duration:14s;animation-delay:8.5s}.particle:nth-child(21){width:10px;height:10px;left:3%;animation-duration:19s;animation-delay:3.5s}.particle:nth-child(22){width:6px;height:6px;left:95%;animation-duration:16s;animation-delay:.8s}.particle:nth-child(23){width:7px;height:7px;left:18%;animation-duration:13s;animation-delay:7.5s}.particle:nth-child(24){width:4px;height:4px;left:72%;animation-duration:21s;animation-delay:4.5s}.particle:nth-child(25){width:12px;height:12px;left:58%;animation-duration:10s;animation-delay:1.5s}.particle:nth-child(26){width:9px;height:9px;left:33%;animation-duration:18s;animation-delay:9.5s}.particle:nth-child(27){width:5px;height:5px;left:48%;animation-duration:14s;animation-delay:.2s}.particle:nth-child(28){width:8px;height:8px;left:88%;animation-duration:16s;animation-delay:5.5s}.particle:nth-child(29){width:10px;height:10px;left:1%;animation-duration:12s;animation-delay:6.5s}.particle:nth-child(30){width:6px;height:6px;left:98%;animation-duration:15s;animation-delay:2.8s}.particle:nth-child(31){width:7px;height:7px;left:12%;animation-duration:17s;animation-delay:10s}.particle:nth-child(32){width:9px;height:9px;left:42%;animation-duration:11s;animation-delay:.3s}.particle:nth-child(33){width:5px;height:5px;left:62%;animation-duration:19s;animation-delay:6s}.particle:nth-child(34){width:8px;height:8px;left:8%;animation-duration:13s;animation-delay:4s}.particle:nth-child(35){width:11px;height:11px;left:78%;animation-duration:20s;animation-delay:1.2s}.particle:nth-child(36){width:6px;height:6px;left:28%;animation-duration:15s;animation-delay:8s}.particle:nth-child(37){width:4px;height:4px;left:52%;animation-duration:16s;animation-delay:3.2s}.particle:nth-child(38){width:10px;height:10px;left:92%;animation-duration:14s;animation-delay:7s}.particle:nth-child(39){width:7px;height:7px;left:38%;animation-duration:18s;animation-delay:.7s}.particle:nth-child(40){width:9px;height:9px;left:68%;animation-duration:12s;animation-delay:5s}
+
 
 @keyframes float {
     0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
@@ -225,7 +258,8 @@ button:hover {
     .main-title { font-size: 3.5rem; }
     button { padding: 12px 25px; font-size: 1rem; }
     .coupon-container { padding: 20px; min-height: 250px; }
-    .secondary-title { font-size: 2.2rem; }
+    .secondary-title { font-size: 2rem; }
     .coupon-header { font-size: 0.7rem; }
     .coupon-footer { font-size: 0.7rem; }
+    .coupon-serial { font-size: 0.6rem; }
 }
