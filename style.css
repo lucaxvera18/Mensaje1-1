@@ -32,12 +32,45 @@ body {
 /* Estilo para el segundo título con palpitación y brillo dorado */
 .secondary-title {
     font-size: 4rem;
-    text-shadow: 0 0 20px #fff, 0 0 30px #ffc1e3, 0 0 40px #ffc1e3; /* Brillo inicial rosado */
+    color: transparent; /* Hace el texto transparente para ver solo las sombras */
+    background: linear-gradient(to right, #FFD700, #FFA500, #FFD700); /* Un degradado dorado base */
+    -webkit-background-clip: text; /* Recorta el fondo al texto */
+    background-clip: text; /* Recorta el fondo al texto */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Brillo blanco sutil */
+                 0 0 20px #FFD700, /* Dorado */
+                 0 0 30px #FFD700; /* Dorado más fuerte */
     margin: 0; /* Eliminar margen predeterminado */
+    position: relative; /* Para posicionar el glitter */
+    display: inline-block; /* Para que el fondo clip funcione bien */
 }
 
 .pulsate-golden-glow {
     animation: pulse-glow 3s infinite ease-in-out alternate; /* Animación de palpitación y brillo dorado */
+}
+
+/* Glitter cayendo para el mensaje final */
+.glitter-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Crear múltiples sombras para simular el glitter */
+    box-shadow: 
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 1 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 2 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 3 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 4 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 5 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 6 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 7 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 8 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 9 */
+        0px 0px 0px 0px rgba(255, 215, 0, 0.7); /* Partícula 10 */
+    animation: fall-glitter 4s infinite ease-in-out; /* Animación de caída */
+    pointer-events: none; /* No bloqueará la interacción */
+    z-index: -1; /* Detrás del texto pero delante del fondo */
 }
 
 
@@ -79,17 +112,17 @@ button:hover {
 @keyframes pulse-glow {
     0% {
         transform: scale(1);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Brillo blanco sutil */
-                     0 0 20px #FFD700, /* Dorado */
-                     0 0 30px #FFD700; /* Dorado más fuerte */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                     0 0 20px #FFD700,
+                     0 0 30px #FFD700;
         opacity: 0.9;
     }
     50% {
-        transform: scale(1.05); /* Ligeramente más grande */
+        transform: scale(1.05);
         text-shadow: 0 0 15px rgba(255, 255, 255, 1),
-                     0 0 30px #FFD700, /* Dorado más intenso */
+                     0 0 30px #FFD700,
                      0 0 45px #FFD700,
-                     0 0 60px rgba(255, 215, 0, 0.7); /* Halo dorado más grande */
+                     0 0 60px rgba(255, 215, 0, 0.7);
         opacity: 1;
     }
     100% {
@@ -101,8 +134,42 @@ button:hover {
     }
 }
 
+/* Animación de caída de glitter para el mensaje final */
+@keyframes fall-glitter {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        box-shadow: 
+            0px 0px 0px 0px rgba(255, 215, 0, 0.7), 
+            5px 0px 0px 0px rgba(255, 215, 0, 0.7), 
+            -3px 0px 0px 0px rgba(255, 215, 0, 0.7),
+            10px 0px 0px 0px rgba(255, 215, 0, 0.7),
+            -8px 0px 0px 0px rgba(255, 215, 0, 0.7),
+            15px 0px 0px 0px rgba(255, 215, 0, 0.7),
+            -12px 0px 0px 0px rgba(255, 215, 0, 0.7),
+            7px 0px 0px 0px rgba(255, 215, 0, 0.7),
+            -5px 0px 0px 0px rgba(255, 215, 0, 0.7),
+            18px 0px 0px 0px rgba(255, 215, 0, 0.7);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100px) rotate(360deg); /* Caen y rotan */
+        box-shadow: 
+            0px 100px 10px -5px rgba(255, 215, 0, 0), /* Se desvanecen al caer */
+            5px 95px 12px -5px rgba(255, 215, 0, 0), 
+            -3px 105px 8px -5px rgba(255, 215, 0, 0),
+            10px 90px 15px -5px rgba(255, 215, 0, 0),
+            -8px 110px 9px -5px rgba(255, 215, 0, 0),
+            15px 85px 18px -5px rgba(255, 215, 0, 0),
+            -12px 115px 11px -5px rgba(255, 215, 0, 0),
+            7px 98px 13px -5px rgba(255, 215, 0, 0),
+            -5px 102px 7px -5px rgba(255, 215, 0, 0),
+            18px 80px 20px -5px rgba(255, 215, 0, 0);
+        opacity: 0;
+    }
+}
 
-/* Partículas flotantes */
+
+/* Partículas flotantes de fondo */
 .particles {
     position: absolute;
     top: 0;
