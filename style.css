@@ -179,6 +179,7 @@ button:hover {
     justify-content: center;
     margin: 20px 0;
     position: relative;
+    overflow: hidden; /* Importante para contener el glitter que cae */
 }
 
 .coupon-footer {
@@ -190,41 +191,40 @@ button:hover {
 
 .secondary-title {
     font-family: 'Dancing Script', cursive;
-    font-size: 2.8rem;
+    font-size: 2.5rem; /* TAMAÑO REDUCIDO para que entre bien */
     color: #5d4037;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(212, 175, 55, 0.7);
     margin: 0;
     position: relative;
-    display: inline-block;
     z-index: 2;
-    animation: pulse-text-glow 3s infinite ease-in-out alternate;
 }
+
+
+/* --- NUEVO EFECTO DE GLITTER QUE CAE --- */
 
 .secondary-title::before,
 .secondary-title::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150%;
-    height: 150%;
-    transform: translate(-50%, -50%);
+    top: -50px; /* Empezar a caer desde arriba */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
     pointer-events: none;
-    opacity: 0;
-    z-index: -1;
-    filter: blur(2px);
-}
-
-.secondary-title::before {
-    background: radial-gradient(circle at center, #FFD700 0%, transparent 70%);
-    animation: glitter-burst 2.5s ease-out infinite;
-    animation-delay: 0s;
+    /* Técnica de box-shadow para crear múltiples partículas */
+    box-shadow: 
+        10px 20px 2px #FFD700, 40px 60px 3px #FFA500, 70px 90px 2px #FFD700,
+        100px 120px 3px #FFA500, 130px 150px 2px #FFD700, 160px 180px 3px #FFA500,
+        20px 100px 2px #FFD700, 50px 130px 3px #FFA500, 80px 20px 2px #FFD700,
+        110px 50px 3px #FFA500, 140px 80px 2px #FFD700, 170px 110px 3px #FFA500;
+    border-radius: 50%; /* Hace que las sombras parezcan puntos */
+    animation: fall-glitter 4s linear infinite;
 }
 
 .secondary-title::after {
-    background: radial-gradient(circle at center, #d4af37 0%, transparent 70%);
-    animation: glitter-burst 2.5s ease-out infinite;
-    animation-delay: 1.2s;
+    left: 50%; /* Segunda capa de partículas desfasada */
+    animation-delay: -2s; /* Empieza a mitad de la animación de la primera capa */
 }
 
 
@@ -256,16 +256,16 @@ button:hover {
     100% { transform: scale(1); box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1); }
 }
 
-@keyframes pulse-text-glow {
-    0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(212, 175, 55, 0.7); }
-    50% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 215, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.6); }
-    100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(212, 175, 55, 0.7); }
-}
-
-@keyframes glitter-burst {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-    30% { opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+/* Animación de caída para el glitter */
+@keyframes fall-glitter {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(250px); /* Distancia de caída */
+        opacity: 0;
+    }
 }
 
 @keyframes coupon-appear {
@@ -299,7 +299,7 @@ button:hover {
     button { padding: 12px 25px; font-size: 1rem; }
     .subtitle { font-size: 1rem; }
     .coupon-container { padding: 20px; min-height: 250px; }
-    .secondary-title { font-size: 2rem; }
+    .secondary-title { font-size: 2rem; } /* Tamaño reducido para móviles */
     .coupon-header { font-size: 0.7rem; }
     .coupon-footer { font-size: 0.7rem; }
     .coupon-serial { font-size: 0.6rem; }
