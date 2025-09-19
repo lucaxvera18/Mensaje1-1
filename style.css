@@ -309,4 +309,76 @@ button:hover {
         width: 5px; height: 5px; /* Tamaño más pequeño */
         box-shadow: 0 0 5px #FFD700, 0 0 10px rgba(255, 215, 0, 0.5); /* Brillo más sutil */
     }
+
+    .fairy { font-size: 2.5rem; } /* Hada más pequeña en móviles */
+}
+
+/* --- NUEVO: HADA FLOTANTE CON PARTÍCULAS --- */
+
+.fairy-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Para que no interfiera con los clics */
+    z-index: 100; /* Asegura que esté por encima de todo */
+    animation: float-around 20s linear infinite; /* Animación del recorrido */
+}
+
+.fairy {
+    font-size: 3.5rem; /* Tamaño del emoji del hada */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Brillo dorado alrededor */
+}
+
+.fairy-trail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+}
+
+.fairy-particle {
+    position: absolute;
+    background: #FFD700;
+    border-radius: 50%;
+    opacity: 0;
+    width: 6px;
+    height: 6px;
+    box-shadow: 0 0 10px #FFD700;
+    animation: fade-and-fall 1.5s ease-out infinite;
+}
+
+/* Retrasos para que las partículas caigan una tras otra */
+.fairy-particle.p1 { animation-delay: 0s; }
+.fairy-particle.p2 { animation-delay: 0.25s; }
+.fairy-particle.p3 { animation-delay: 0.5s; }
+.fairy-particle.p4 { animation-delay: 0.75s; }
+.fairy-particle.p5 { animation-delay: 1s; }
+.fairy-particle.p6 { animation-delay: 1.25s; }
+
+/* Animación del recorrido del hada por la pantalla */
+@keyframes float-around {
+    0% { transform: translateX(-10vw) translateY(20vh) rotate(0deg); }
+    25% { transform: translateX(80vw) translateY(-10vh) rotate(20deg); }
+    50% { transform: translateX(90vw) translateY(70vh) rotate(0deg); }
+    75% { transform: translateX(20vw) translateY(90vh) rotate(-20deg); }
+    100% { transform: translateX(-10vw) translateY(20vh) rotate(0deg); }
+}
+
+/* Animación de las partículas que suelta el hada */
+@keyframes fade-and-fall {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(40px) scale(0); /* Caen un poco y se encogen */
+        opacity: 0;
+    }
 }
