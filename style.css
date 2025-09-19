@@ -29,48 +29,53 @@ body {
     margin: 0; /* Eliminar margen predeterminado */
 }
 
-/* Estilo para el segundo título con palpitación y brillo dorado */
+/* --- CAMBIO REALIZADO AQUÍ --- */
+/* Estilo para el segundo título con letras blancas y brillo dorado */
 .secondary-title {
     font-size: 4rem;
-    color: transparent; /* Hace el texto transparente para ver solo las sombras */
-    background: linear-gradient(to right, #FFD700, #FFA500, #FFD700); /* Un degradado dorado base */
-    -webkit-background-clip: text; /* Recorta el fondo al texto */
-    background-clip: text; /* Recorta el fondo al texto */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Brillo blanco sutil */
-                 0 0 20px #FFD700, /* Dorado */
-                 0 0 30px #FFD700; /* Dorado más fuerte */
+    color: white; /* LETRAS EN BLANCO */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Mantenemos el brillo blanco/dorado */
+                 0 0 20px #FFD700, 
+                 0 0 30px #FFD700; 
     margin: 0; /* Eliminar margen predeterminado */
-    position: relative; /* Para posicionar el glitter */
-    display: inline-block; /* Para que el fondo clip funcione bien */
 }
 
 .pulsate-golden-glow {
     animation: pulse-glow 3s infinite ease-in-out alternate; /* Animación de palpitación y brillo dorado */
 }
 
-/* Glitter cayendo para el mensaje final */
-.glitter-effect::before {
+
+/* --- EFECTO DE GLITTER CAYENDO (SIN CAMBIOS) --- */
+.glitter-container {
+    position: relative;
+    display: inline-block;
+}
+
+.glitter-container::before, .glitter-container::after {
     content: '';
     position: absolute;
-    top: 0;
+    top: -20px; /* Empezar un poco por encima del texto */
     left: 0;
     width: 100%;
-    height: 100%;
-    /* Crear múltiples sombras para simular el glitter */
-    box-shadow: 
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 1 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 2 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 3 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 4 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 5 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 6 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 7 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 8 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7), /* Partícula 9 */
-        0px 0px 0px 0px rgba(255, 215, 0, 0.7); /* Partícula 10 */
-    animation: fall-glitter 4s infinite ease-in-out; /* Animación de caída */
-    pointer-events: none; /* No bloqueará la interacción */
-    z-index: -1; /* Detrás del texto pero delante del fondo */
+    height: 150%; /* Más altura para que caigan */
+    pointer-events: none; /* No interferir con el ratón */
+    
+    background-image:
+        radial-gradient(circle, #FFD700 1px, transparent 1.5px),
+        radial-gradient(circle, #FFA500 1px, transparent 1.5px);
+    
+    background-size: 30px 30px, 40px 40px;
+    background-position: 0 0, 20px 20px;
+    
+    animation: fall-glitter 3s linear infinite;
+    opacity: 0;
+}
+
+.glitter-container::after {
+    background-size: 25px 25px, 35px 35px;
+    background-position: 10px 10px, 25px 25px;
+    animation-duration: 4s; /* Más lento */
+    animation-delay: 1.5s; /* Empieza más tarde */
 }
 
 
@@ -134,36 +139,14 @@ button:hover {
     }
 }
 
-/* Animación de caída de glitter para el mensaje final */
+/* Animación de caída de glitter */
 @keyframes fall-glitter {
     0% {
-        transform: translateY(0) rotate(0deg);
-        box-shadow: 
-            0px 0px 0px 0px rgba(255, 215, 0, 0.7), 
-            5px 0px 0px 0px rgba(255, 215, 0, 0.7), 
-            -3px 0px 0px 0px rgba(255, 215, 0, 0.7),
-            10px 0px 0px 0px rgba(255, 215, 0, 0.7),
-            -8px 0px 0px 0px rgba(255, 215, 0, 0.7),
-            15px 0px 0px 0px rgba(255, 215, 0, 0.7),
-            -12px 0px 0px 0px rgba(255, 215, 0, 0.7),
-            7px 0px 0px 0px rgba(255, 215, 0, 0.7),
-            -5px 0px 0px 0px rgba(255, 215, 0, 0.7),
-            18px 0px 0px 0px rgba(255, 215, 0, 0.7);
+        transform: translateY(-20px); /* Empieza arriba */
         opacity: 1;
     }
     100% {
-        transform: translateY(100px) rotate(360deg); /* Caen y rotan */
-        box-shadow: 
-            0px 100px 10px -5px rgba(255, 215, 0, 0), /* Se desvanecen al caer */
-            5px 95px 12px -5px rgba(255, 215, 0, 0), 
-            -3px 105px 8px -5px rgba(255, 215, 0, 0),
-            10px 90px 15px -5px rgba(255, 215, 0, 0),
-            -8px 110px 9px -5px rgba(255, 215, 0, 0),
-            15px 85px 18px -5px rgba(255, 215, 0, 0),
-            -12px 115px 11px -5px rgba(255, 215, 0, 0),
-            7px 98px 13px -5px rgba(255, 215, 0, 0),
-            -5px 102px 7px -5px rgba(255, 215, 0, 0),
-            18px 80px 20px -5px rgba(255, 215, 0, 0);
+        transform: translateY(120px); /* Termina abajo */
         opacity: 0;
     }
 }
@@ -182,14 +165,13 @@ button:hover {
 
 .particle {
     position: absolute;
-    background: rgba(255, 255, 255, 0.7); /* Un poco más visibles y brillantes */
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     opacity: 0;
-    animation: float 20s infinite ease-in-out; /* Duración base un poco más larga */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Pequeño brillo a las partículas */
+    animation: float 20s infinite ease-in-out;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-/* Asignar diferentes tamaños y duraciones a las partículas para un efecto más natural y denso */
 .particle:nth-child(1) { width: 10px; height: 10px; left: 10%; animation-duration: 12s; animation-delay: 1s; }
 .particle:nth-child(2) { width: 5px; height: 5px; left: 20%; animation-duration: 18s; animation-delay: 3s; }
 .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-duration: 14s; animation-delay: 0s; }
